@@ -49,11 +49,16 @@ def phase_javainfo(ctx, g):
                 java_toolchain = find_java_toolchain(ctx, ctx.attr._java_toolchain),
             )
 
+        source_jar_name = ctx.outputs.jar.basename.replace(".jar", "-src.jar")
+        output_source_jar = ctx.actions.declare_file(
+            source_jar_name,
+            sibling = ctx.outputs.jar,
+        )
+
         source_jar = java_common.pack_sources(
             ctx.actions,
-            output_jar = ctx.outputs.jar,
+            output_source_jar = output_source_jar,
             sources = ctx.files.srcs,
-            host_javabase = find_java_runtime_toolchain(ctx, ctx.attr._host_javabase),
             java_toolchain = find_java_toolchain(ctx, ctx.attr._java_toolchain),
         )
 
