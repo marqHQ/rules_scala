@@ -2,6 +2,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file"
 load("@bazel_tools//tools/build_defs/repo:jvm.bzl", "jvm_maven_import_external")
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 load("@rules_jvm_external//:specs.bzl", "maven")
+load("@rules_java//java:defs.bzl", "java_import")
 
 _SRC_FILEGROUP_BUILD_FILE_CONTENT = """
 filegroup(
@@ -21,21 +22,18 @@ def scala_artifacts():
         "org.scala-lang:scala-compiler:2.13.8",
         "org.scala-lang:scala-library:2.13.8",
         "org.scala-lang:scala-reflect:2.13.8",
-        "org.scala-sbt:compiler-interface:1.5.7",
         "org.scala-sbt:io_2.13:1.5.1",
         "org.scala-sbt:test-interface:1.0",
         "org.scala-sbt:util-interface:1.3.0",
         "org.scala-sbt:util-logging_2.13:1.3.0",
-        "org.scala-sbt:zinc_2.13:1.5.7",
-        "org.scala-sbt:zinc-apiinfo_2.13:1.5.7",
-        "org.scala-sbt:zinc-classpath_2.13:1.5.7",
-        "org.scala-sbt:zinc-compile-core_2.13:1.5.7",
-        "org.scala-sbt:zinc-core_2.13:1.5.7",
-        "org.scala-sbt:zinc-persist_2.13:1.5.7",
-        # The compiler bridge has a dependency on compiler-interface, which has a dependency on the Scala 2
-        # library. We need to set this to neverlink = True to avoid this the Scala 2 library being pulled
-        # onto the Scala 3, and other Scala versions like 2.12, compiler classpath during runtime.
-        maven.artifact("org.scala-sbt", "compiler-bridge_2.13", "1.5.7", neverlink = True),
+        "org.scala-sbt:compiler-interface:1.4.0-press",
+        "org.scala-sbt:zinc_2.13:1.4.0-press",
+        "org.scala-sbt:zinc-apiinfo_2.13:1.4.0-press",
+        "org.scala-sbt:zinc-classpath_2.13:1.4.0-press",
+        "org.scala-sbt:zinc-compile-core_2.13:1.4.0-press",
+        "org.scala-sbt:zinc-core_2.13:1.4.0-press",
+        "org.scala-sbt:zinc-persist_2.13:1.4.0-press",
+        maven.artifact("org.scala-sbt", "compiler-bridge_2.13", "1.4.0-press", neverlink = True),
     ]
 
 def scala_repositories(java_launcher_version = "0.29.1"):
@@ -46,6 +44,7 @@ def scala_repositories(java_launcher_version = "0.29.1"):
             "https://repo.maven.apache.org/maven2",
             "https://maven-central.storage-download.googleapis.com/maven2",
             "https://mirror.bazel.build/repo1.maven.org/maven2",
+            "https://repo.lucidpressutil.com/artifactory/ext-release-local",
         ],
         fetch_sources = True,
         maven_install_json = "@rules_scala_annex//:annex_install.json",
@@ -57,6 +56,14 @@ def scala_repositories(java_launcher_version = "0.29.1"):
         "/src/main/java/com/google/devtools/build/lib/bazel/rules/java/" +
         "java_stub_template.txt"
     )
+
+#    java_import(
+#        name = "zinc-apiinfo-jar",
+#        jars = [
+#            "lib/zinc-apiinfo_2.13-1.4.0-SNAPSHOT.jar",
+#        ],
+#        visibility = ["//visibility:public"]
+#    )
 
     http_file(
         name = "anx_java_stub_template",
