@@ -52,9 +52,9 @@ configure_zinc_scala(
     name = "zinc_2_13_8",
     compiler_bridge = "@annex//:org_scala_sbt_compiler_bridge_2_13",
     compiler_classpath = compiler_classpath_2_13_8,
-    global_scalacopts = [
-        "-Ytasty-reader",
-    ],
+    #global_scalacopts = [
+    #    "-Ytasty-reader",
+    #],
     runtime_classpath = runtime_classpath_2_13_8,
     version = "2.13.8",
     visibility = ["//visibility:public"],
