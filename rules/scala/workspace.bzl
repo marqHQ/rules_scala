@@ -18,24 +18,24 @@ def scala_artifacts():
         "com.thesamet.scalapb:scalapb-runtime_2.13:0.11.4",
         "net.sourceforge.argparse4j:argparse4j:0.8.1",
         "org.jacoco:org.jacoco.core:0.7.5.201505241946",
-        "org.scala-lang:scala-compiler:2.13.8",
-        "org.scala-lang:scala-library:2.13.8",
-        "org.scala-lang:scala-reflect:2.13.8",
-        "org.scala-sbt:compiler-interface:1.5.7",
+        "org.scala-lang:scala-compiler:2.13.11",
+        "org.scala-lang:scala-library:2.13.11",
+        "org.scala-lang:scala-reflect:2.13.11",
+        "org.scala-sbt:compiler-interface:1.9.6",
         "org.scala-sbt:io_2.13:1.5.1",
         "org.scala-sbt:test-interface:1.0",
         "org.scala-sbt:util-interface:1.3.0",
         "org.scala-sbt:util-logging_2.13:1.3.0",
-        "org.scala-sbt:zinc_2.13:1.5.7",
-        "org.scala-sbt:zinc-apiinfo_2.13:1.5.7",
-        "org.scala-sbt:zinc-classpath_2.13:1.5.7",
-        "org.scala-sbt:zinc-compile-core_2.13:1.5.7",
-        "org.scala-sbt:zinc-core_2.13:1.5.7",
-        "org.scala-sbt:zinc-persist_2.13:1.5.7",
+        "org.scala-sbt:zinc_2.13:1.9.6",
+        "org.scala-sbt:zinc-apiinfo_2.13:1.9.6",
+        "org.scala-sbt:zinc-classpath_2.13:1.9.6",
+        "org.scala-sbt:zinc-compile-core_2.13:1.9.6",
+        "org.scala-sbt:zinc-core_2.13:1.9.6",
+        "org.scala-sbt:zinc-persist_2.13:1.9.6",
         # The compiler bridge has a dependency on compiler-interface, which has a dependency on the Scala 2
         # library. We need to set this to neverlink = True to avoid this the Scala 2 library being pulled
         # onto the Scala 3, and other Scala versions like 2.12, compiler classpath during runtime.
-        maven.artifact("org.scala-sbt", "compiler-bridge_2.13", "1.5.7", neverlink = True),
+        maven.artifact("org.scala-sbt", "compiler-bridge_2.13", "1.9.6", neverlink = True),
     ]
 
 def scala_repositories(java_launcher_version = "0.29.1"):
